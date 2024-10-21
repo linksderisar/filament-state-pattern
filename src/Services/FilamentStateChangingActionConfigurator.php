@@ -2,13 +2,11 @@
 
 namespace Linksderisar\FilamentStatePattern\Services;
 
-
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\Action;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Mail;
 use Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport;
 
 /**
@@ -16,16 +14,14 @@ use Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport;
  */
 class FilamentStateChangingActionConfigurator
 {
-
     public function __construct(
         private readonly Action|\Filament\Actions\Action $action,
         private readonly string $modelStateAttribute,
         private readonly string $modelStateClass,
         private readonly string $model,
-    )
-    {}
+    ) {}
 
-    public function getAction():Action|\Filament\Actions\Action
+    public function getAction(): Action|\Filament\Actions\Action
     {
         return $this->action->icon('heroicon-o-adjustments-vertical')
             ->action(function ($record, array $data): void {
@@ -43,7 +39,7 @@ class FilamentStateChangingActionConfigurator
                         ->label('Change state to')
                         ->reactive()
                         ->afterStateUpdated(function ($component, $state, $record) {
-                            if(!$state){
+                            if (! $state) {
                                 return;
                             }
                             // After the state is updated, fill the form with default values from transition class
@@ -81,7 +77,7 @@ class FilamentStateChangingActionConfigurator
                             $transitionClass = '';
 
                             // If the toState is set, we can resolve the transition class
-                            if($get('toState')){
+                            if ($get('toState')) {
                                 $transitionClass = $this->modelStateClass::config()
                                     ->resolveTransitionClass($record->{$this->modelStateAttribute}, $get('toState'));
                             }
@@ -105,7 +101,7 @@ class FilamentStateChangingActionConfigurator
                         $transitionClass = $this->modelStateClass::config()
                             ->resolveTransitionClass($record->{$this->modelStateAttribute}, $get('toState'));
 
-                        if($transitionClass && method_exists($transitionClass, 'filamentFields')){
+                        if ($transitionClass && method_exists($transitionClass, 'filamentFields')) {
                             return $transitionClass ? $transitionClass::filamentFields() : [];
                         }
 
