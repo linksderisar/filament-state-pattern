@@ -14,7 +14,7 @@ class FilamentStatePatternServiceProvider extends ServiceProvider
     public function boot()
     {
         // Register views
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'ldi-fsp');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'ldi-fsp');
     }
 
     /**

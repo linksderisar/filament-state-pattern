@@ -31,15 +31,16 @@ class FilamentStateChangingActionConfigurator
                 if ($newState) {
                     $record->{$this->modelStateAttribute}->transitionTo($newState, ...Arr::except($data, ['toState']));
                 }
-            })->visible(function($record){
+            })->visible(function ($record) {
                 // check if we can transition to anywhere
                 $stateCollection = $this->model::getStates()[$this->modelStateAttribute];
 
                 foreach ($stateCollection as $state) {
-                    if ($record->{$this->modelStateAttribute}->canTransitionTo($state) ) {
+                    if ($record->{$this->modelStateAttribute}->canTransitionTo($state)) {
                         return true;
                     }
                 }
+
                 return false;
             })
             ->form(function () {
@@ -77,7 +78,7 @@ class FilamentStateChangingActionConfigurator
                             });
 
                             return $stateCollection->mapWithKeys(function ($state) {
-                                return [$state => method_exists($state,'getLabel')? $state::getLabel() : Str::headline($state) ];
+                                return [$state => method_exists($state, 'getLabel') ? $state::getLabel() : Str::headline($state)];
                             })->toArray();
                         }),
 
