@@ -7,6 +7,7 @@ use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Tables\Actions\Action;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport;
 
 /**
@@ -30,6 +31,16 @@ class FilamentStateChangingActionConfigurator
                 if ($newState) {
                     $record->{$this->modelStateAttribute}->transitionTo($newState, ...Arr::except($data, ['toState']));
                 }
+            })->visible(function($record){
+                // check if we can transition to anywhere
+                $stateCollection = $this->model::getStates()[$this->modelStateAttribute];
+
+                foreach ($stateCollection as $state) {
+                    if ($record->{$this->modelStateAttribute}->canTransitionTo($state) ) {
+                        return true;
+                    }
+                }
+                return false;
             })
             ->form(function () {
                 return [
@@ -66,7 +77,7 @@ class FilamentStateChangingActionConfigurator
                             });
 
                             return $stateCollection->mapWithKeys(function ($state) {
-                                return [$state => $state::label()];
+                                return [$state => method_exists($state,'getLabel')? $state::getLabel() : Str::headline($state) ];
                             })->toArray();
                         }),
 
@@ -82,7 +93,7 @@ class FilamentStateChangingActionConfigurator
                                     ->resolveTransitionClass($record->{$this->modelStateAttribute}, $get('toState'));
                             }
 
-                            return view('ldi-fsp.state-form-info', [
+                            return view('ldi-fsp::state-form-info', [
                                 'record' => $record,
                                 'state' => $record->{$this->modelStateAttribute},
                                 'toState' => $get('toState'),
