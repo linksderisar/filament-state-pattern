@@ -24,6 +24,7 @@ class FilamentStateChangingActionConfigurator
 
     public function getAction(): Action|\Filament\Actions\Action
     {
+
         return $this->action->icon('heroicon-o-adjustments-vertical')
             ->action(function ($record, array $data): void {
                 // Transition to new state after the modal is submitted
