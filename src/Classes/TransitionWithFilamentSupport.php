@@ -12,7 +12,7 @@ abstract class TransitionWithFilamentSupport extends Transition
         return '';
     }
 
-    public static function filamentFields(): array
+    public static function filamentFields($record = null): array
     {
         return [];
     }

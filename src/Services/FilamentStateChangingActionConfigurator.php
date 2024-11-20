@@ -115,7 +115,7 @@ class FilamentStateChangingActionConfigurator
                             ->resolveTransitionClass($record->{$this->modelStateAttribute}, $get('toState'));
 
                         if ($transitionClass && method_exists($transitionClass, 'filamentFields')) {
-                            return $transitionClass ? $transitionClass::filamentFields() : [];
+                            return $transitionClass ? $transitionClass::filamentFields($record) : [];
                         }
 
                         return [];
