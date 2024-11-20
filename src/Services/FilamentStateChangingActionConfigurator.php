@@ -65,7 +65,7 @@ class FilamentStateChangingActionConfigurator
                             if ($transitionClass && is_subclass_of($transitionClass, TransitionWithFilamentSupport::class)) {
                                 $component->getContainer()->fill([
                                     'toState' => $state,
-                                    ...$transitionClass::fillFilamentFormWithDefaultValues(),
+                                    ...$transitionClass::fillFilamentFormWithDefaultValues($record),
                                 ]);
                             }
                         })

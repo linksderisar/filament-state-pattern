@@ -17,7 +17,7 @@ abstract class TransitionWithFilamentSupport extends Transition
         return [];
     }
 
-    public static function fillFilamentFormWithDefaultValues(): array
+    public static function fillFilamentFormWithDefaultValues($record = null): array
     {
         return [];
     }
