@@ -21,4 +21,11 @@ abstract class TransitionWithFilamentSupport extends Transition
     {
         return [];
     }
+
+    public static function canTransitionFromFilament($record = null): bool
+    {
+        return true;
+    }
+
+
 }
