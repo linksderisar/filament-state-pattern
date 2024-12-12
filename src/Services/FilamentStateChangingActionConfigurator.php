@@ -82,10 +82,11 @@ class FilamentStateChangingActionConfigurator
                                     if ($transitionClass && is_subclass_of($transitionClass, TransitionWithFilamentSupport::class)) {
                                         return $transitionClass::canTransitionFromFilament($record);
                                     }
+
                                     return true;
                                 })->filter(function ($state) use ($record) {
-                                return $record->{$this->modelStateAttribute}->canTransitionTo($state) && $state !== get_class($record->{$this->modelStateAttribute});
-                            });
+                                    return $record->{$this->modelStateAttribute}->canTransitionTo($state) && $state !== get_class($record->{$this->modelStateAttribute});
+                                });
 
                             return $stateCollection->mapWithKeys(function ($state) {
                                 return [$state => method_exists($state, 'getLabel') ? $state::getLabel() : Str::headline($state)];
