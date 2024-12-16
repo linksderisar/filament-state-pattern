@@ -76,6 +76,9 @@ class FilamentStateChangingActionConfigurator
                             // Filter out the current state, so it won't be an option for states that allow all transitions
                             $stateCollection = $stateCollection
                                 ->filter(function ($state) use ($record) {
+                                    return $record->{$this->modelStateAttribute}->canTransitionTo($state) && $state !== get_class($record->{$this->modelStateAttribute});
+                                })
+                                ->filter(function ($state) use ($record) {
                                     /** @var TransitionWithFilamentSupport $transitionClass */
                                     $transitionClass = $this->modelStateClass::config()
                                         ->resolveTransitionClass($record->{$this->modelStateAttribute}, $state);
@@ -83,9 +86,7 @@ class FilamentStateChangingActionConfigurator
                                         return $transitionClass::canTransitionFromFilament($record);
                                     }
                                     return true;
-                                })->filter(function ($state) use ($record) {
-                                return $record->{$this->modelStateAttribute}->canTransitionTo($state) && $state !== get_class($record->{$this->modelStateAttribute});
-                            });
+                                });
 
                             return $stateCollection->mapWithKeys(function ($state) {
                                 return [$state => method_exists($state, 'getLabel') ? $state::getLabel() : Str::headline($state)];
