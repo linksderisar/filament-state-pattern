@@ -85,6 +85,7 @@ class FilamentStateChangingActionConfigurator
                                     if ($transitionClass && is_subclass_of($transitionClass, TransitionWithFilamentSupport::class)) {
                                         return $transitionClass::canTransitionFromFilament($record);
                                     }
+
                                     return true;
                                 });
 

@@ -26,6 +26,4 @@ abstract class TransitionWithFilamentSupport extends Transition
     {
         return true;
     }
-
-
 }
