@@ -30,7 +30,7 @@
             </div>
 
         </div>
-        @if( is_subclass_of($transitionClass, \App\States\TransitionWithFilamentSupport::class) && $transitionClass::filamentStateFormDescription($record) )
+        @if( is_subclass_of($transitionClass, \Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport::class) && $transitionClass::filamentStateFormDescription($record) )
             <div class="flex  gap-4 items-center  border p-2 rounded-lg mt-4 px-4">
                 <div>
                     <x-heroicon-c-exclamation-circle class="w-6 h-6 text-warning-500"></x-heroicon-c-exclamation-circle>
