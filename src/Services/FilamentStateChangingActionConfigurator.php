@@ -114,7 +114,7 @@ class FilamentStateChangingActionConfigurator
                             ]);
                         }),
 
-                    //Pull additional fields from the state
+                    // Pull additional fields from the state
                     Grid::make(2)->schema(function ($get, $record) {
 
                         if (! $get('toState')) {
