@@ -12,9 +12,13 @@ use Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport;
 
 /**
  * @property string $modelStateClass
+ * @template T of Action|\Filament\Actions\Action
  */
 class FilamentStateChangingActionConfigurator
 {
+    /**
+     * @param T $action
+     */
     public function __construct(
         private readonly Action|\Filament\Actions\Action $action,
         private readonly string $modelStateAttribute,
@@ -22,6 +26,9 @@ class FilamentStateChangingActionConfigurator
         private readonly string $model,
     ) {}
 
+    /**
+     * @return T
+     */
     public function getAction(): Action|\Filament\Actions\Action
     {
 
@@ -114,7 +121,7 @@ class FilamentStateChangingActionConfigurator
                             ]);
                         }),
 
-                    //Pull additional fields from the state
+                    // Pull additional fields from the state
                     Grid::make(2)->schema(function ($get, $record) {
 
                         if (! $get('toState')) {
