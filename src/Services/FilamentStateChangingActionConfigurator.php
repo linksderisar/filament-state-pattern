@@ -12,12 +12,13 @@ use Linksderisar\FilamentStatePattern\Classes\TransitionWithFilamentSupport;
 
 /**
  * @property string $modelStateClass
+ *
  * @template T of Action|\Filament\Actions\Action
  */
 class FilamentStateChangingActionConfigurator
 {
     /**
-     * @param T $action
+     * @param  T  $action
      */
     public function __construct(
         private readonly Action|\Filament\Actions\Action $action,
